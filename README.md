@@ -1,22 +1,98 @@
-# LiDAR_CHM - Processamento LiDAR - Aplicativo Shiny / LiDAR Processing - Shiny Application
-Estudo utiliza processamento LiDAR para análise de vegetação, envolvendo georreferenciamento, corte por shapefile, classificação de solo, geração de DTM/DSM/CHM e estatísticas de altura. Desenvolvido em R Shiny com interface intuitiva para automatização do fluxo de trabalho com monitoramento de progresso e relatórios detalhados.
+# 🌡️ Surface Heat Analysis - Em desenvolvimento! 
 
-[EN] Comprehensive workflow for LiDAR data processing featuring georeferencing, shapefile cropping, ground classification, and DTM/DSM/CHM generation with real-time progress monitoring and detailed statistics.
+Aplicativo interativo em **R Shiny** para análise de temperatura de superfície utilizando imagens **Landsat Collection 2 Level 2**.
+O app permite identificar áreas quentes em municípios brasileiros, calcular estatísticas de temperatura, gerar mapas interativos e exportar resultados em diversos formatos.
 
-[PT] Fluxo de trabalho completo para processamento de dados LiDAR com georreferenciamento, recorte por shapefile, classificação de solo e geração de DTM/DSM/CHM com monitoramento em tempo real e estatísticas detalhadas.
+---
 
-🔧 Funcionalidades Principais / Key Features
-✅ Interface web interativa / Interactive web interface
+## 🚀 Funcionalidades
 
-✅ Pipeline automatizado com monitoramento de progresso / Automated pipeline with progress tracking
+* **Upload de Dados**
 
-✅ Compatibilidade de sistemas de coordenadas / CRS compatibility handling
+  * Imagens Landsat (GeoTIFF – banda térmica ST_B10).
+  * Arquivo GeoJSON do município de interesse.
+  * Suporte para múltiplas imagens (1 a 10).
 
-✅ Classificação de pontos de solo e remoção de ruído / Ground classification and noise removal
+* **Processamento**
 
-✅ Parâmetros personalizáveis de resolução e suavização / Customizable resolution and smoothing parameters
+  * Conversão automática de **Kelvin → Celsius**.
+  * Recorte da cena Landsat com base no município selecionado.
+  * Identificação de **áreas quentes** acima do limite definido pelo usuário (default: 35 °C).
 
-✅ Relatórios estatísticos detalhados / Detailed statistical reports
+* **Resultados**
 
-🛠 Tecnologias / Technologies
-R, Shiny, lidR, sf, terra, shinyFiles
+  * Informações detalhadas sobre os arquivos carregados.
+  * Estatísticas descritivas de temperatura (média, mínima, máxima, desvio-padrão).
+  * Tabela comparativa entre imagens.
+  * Boxplots de comparação temporal.
+  * Mapas interativos (**Leaflet**) com destaque das áreas críticas.
+  * Visualizações adicionais do município em **ggplot2**.
+
+* **Download**
+
+  * **GeoJSON** com polígonos de áreas quentes.
+  * **GeoTIFF** com raster de temperatura em °C.
+  * **PNG** dos mapas de temperatura.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **R Shiny** + **Shiny Dashboard** (interface web interativa)
+* **terra** (processamento de rasters)
+* **sf** (geoprocessamento vetorial)
+* **leaflet** (mapas interativos)
+* **ggplot2** (visualizações gráficas)
+* **dplyr, purrr, stringr** (manipulação de dados)
+* **osmdata, fs, shinyFiles** (suporte a dados externos e sistema de arquivos)
+
+---
+
+## 📂 Estrutura do App
+
+* **Upload de Arquivos**: envio das imagens Landsat + GeoJSON.
+* **Resultados**: análise estatística, mapas interativos e gráficos.
+* **Download**: exportação dos outputs processados.
+
+---
+
+## ▶️ Como Executar
+
+1. Clone este repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/surface-heat-analysis.git
+   cd surface-heat-analysis
+   ```
+
+2. Abra o R ou RStudio e instale as dependências:
+
+   ```R
+   install.packages(c(
+     "shiny", "shinydashboard", "terra", "sf", "leaflet", "ggplot2",
+     "shinyFiles", "fs", "osmdata", "dplyr", "purrr", "stringr"
+   ))
+   ```
+
+3. Rode o aplicativo:
+
+   ```R
+   shiny::runApp("app.R")
+   ```
+
+---
+
+## 📊 Exemplos de Uso
+
+* Avaliar a evolução de áreas urbanas mais quentes (ilhas de calor).
+* Comparar diferentes datas de imagens Landsat.
+* Quantificar área total de calor crítico (km² e % do município).
+* Apoiar diagnósticos em **gestão urbana** e **planejamento ambiental**.
+
+---
+
+## ⚠️ Observações
+
+* O tamanho máximo por arquivo é **500MB**.
+* O app espera **Landsat Collection 2 Level 2**, que já contém a banda de temperatura (ST_B10).
+* É necessário que os **sistemas de coordenadas** sejam compatíveis.
